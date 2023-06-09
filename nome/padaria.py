@@ -8,7 +8,6 @@ print('5 – Sair.')
 
 resposta = int(input('\nOlá, o que você deseja fazer? '))
 
-lista_tipo_preço_estoque = []
 
 dict = {}
 
@@ -19,6 +18,8 @@ while(True):
     elif resposta == 1:
         while(True):
             print('Muito bem, vamos começar o cadastro. ')
+
+            lista_tipo_preço_estoque = []
             
             indentificador_do_produto = int(input('Qual o código você deseja colocar no produto? '))
             nome_produto = input('Qual o nome do produto? ')
@@ -36,8 +37,7 @@ while(True):
                 pass
             elif repitir == 'N':
                 break
+        break
 
 
-
-print(lista_tipo_preço_estoque)
 print(dict)
