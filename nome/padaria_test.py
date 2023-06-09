@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-def get_answer_alternatives():
+def get_answer_alternatives(): # menu das opções, apenas possível escolher entre 1,2,3,4,5
     resposta = None
     while resposta not in [1,2,3,4,5]:
         try:
@@ -17,7 +17,7 @@ def get_answer_alternatives():
             print('Opção não existente, digite novamente.')
     return resposta
 
-def get_answer_continue(type_answer):
+def get_answer_continue(type_answer): # função para repetir sem ter que voltar pro menu ou sair da opção(opção me refiro ao 1,2,3,4,5)
     decision = None
     while decision not in ['s','n']:
         if decision != None:
@@ -31,13 +31,15 @@ def get_answer_continue(type_answer):
             decision = input('Deseja alterar outro produto?(S/N)').lower()
     return decision
 
-def generate_identifier():
+def generate_identifier(): # gera automaticamente um id entre 1 e 10000 único
     ident = None
     while ident in list(dict_products.keys()) or ident == None:
         ident = np.random.choice(np.arange(0,10_000))
     return ident
 
-def assert_type_answer(phrase, data_type):
+# garante que as respostas para todas as perguntas que você venha a fazer para o usuário retorne no tipo de dado que você deseja
+# exemplo: se eu digitar um nome no campo "preço" irá retornar um erro
+def assert_type_answer(phrase, data_type): 
     answer = None
     case_condition = False
     while answer == None or case_condition != True or answer == '':
@@ -56,14 +58,14 @@ def assert_type_answer(phrase, data_type):
             print('Digite de acordo com tipo de unidade.')
     return answer
 
-def check_product_name(name):
+def check_product_name(name): # verifica se existe produto com o nome no banco de dados
     for i in list(dict_products.keys()):
         if name == dict_products[i][0]:
             return i
         else:
             return False
 
-def check_indet(cod):
+def check_indet(cod): # verifica se existe produto com o id no banco de dados
     for i in list(dict_products.keys()):
         if cod == i:
             return i
@@ -71,7 +73,7 @@ def check_indet(cod):
             return False
         
 
-def check_quant_product(ident,quant):
+def check_quant_product(ident,quant): # verifica a quantidade existente do produto especificado no parametro da função
     available_quant = dict_products[ident][3]
     if quant > available_quant:
         return False
