@@ -1,0 +1,27 @@
+	Nome	Tipo	Preço	Quantidade
+2814	pao frances	pao	2.5	50
+3940	bolo de chocolate	bolo	25.0	10
+6528	croissant	salgado	3.0	20
+4015	rosquinha	doce	1.5	30
+1778	pao de queijo	salgado	2.0	40
+2641	torta de morango	torta	30.0	5
+5388	cookie	doce	1.0	15
+1516	pao integral	pao	3.0	25
+3709	pastel de carne	salgado	2.5	10
+1978	bolo de cenoura	bolo	20.0	8
+9487	sonho de creme	doce	2.0	12
+6067	pao de alho	salgado	2.5	18
+2474	biscoito de aveia	doce	1.5	20
+1993	pao australiano	pao	3.5	15
+5414	coxinha	salgado	2.0	25
+8635	agua	ingrediente	1.0	100
+5629	farinha de trigo	ingrediente	3.0	50
+1898	fermento	ingrediente	2.5	30
+9985	acucar	ingrediente	2.0	40
+9858	leite	ingrediente	2.0	35
+2882	ovos	ingrediente	1.5	60
+8007	manteiga	ingrediente	3.0	25
+990	sal	ingrediente	1.0	75
+3760	chocolate em po	ingrediente	4.0	15
+742	fermento biologico	ingrediente	2.0	20
+7193	farinha	po	10.87	1000
