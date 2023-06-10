@@ -1,5 +1,8 @@
 	Nome	Tipo	Preço	Quantidade
-2814	pao frances	pao	2.5	50
+2814	pao frances	pao	2.5	5
+2882	ovos	ingrediente	1.5	35
+9858	leite	ingrediente	2.0	25
+7193	farinha	po	10.87	700
 3940	bolo de chocolate	bolo	25.0	10
 6528	croissant	salgado	3.0	20
 4015	rosquinha	doce	1.5	30
@@ -17,11 +20,8 @@
 8635	agua	ingrediente	1.0	100
 5629	farinha de trigo	ingrediente	3.0	50
 1898	fermento	ingrediente	2.5	30
-9985	acucar	ingrediente	2.0	40
-9858	leite	ingrediente	2.0	35
-2882	ovos	ingrediente	1.5	60
+9985	acucar	ingrediente	2.0	30
 8007	manteiga	ingrediente	3.0	25
-990	sal	ingrediente	1.0	75
+990	sal	ingrediente	1.0	60
 3760	chocolate em po	ingrediente	4.0	15
 742	fermento biologico	ingrediente	2.0	20
-7193	farinha	po	10.87	1000
