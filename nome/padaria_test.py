@@ -157,9 +157,12 @@ while resposta != 5:
                     print(f'O seu estoque {number} é menor que a quantidade {quant_venda} pedida')
                 else:
                     dict_products[ident][3] = dict_products[ident][3] - quant_venda
-
-                    dict_rel_sales[count_sales] = copy.deepcopy(dict_products[ident])
-                    dict_rel_sales[count_sales][3] = quant_venda
+                    
+                    temp = copy.deepcopy(dict_products[ident])
+                    temp.insert(0,ident)
+                    
+                    dict_rel_sales[count_sales] = temp
+                    dict_rel_sales[count_sales][4] = quant_venda
                     count_sales += 1
                     
                     print('Venda realizada com sucesso!')
@@ -255,7 +258,7 @@ while resposta != 5:
             elif answer == 'v':
                 print(' ')
                 df = pd.DataFrame(dict_rel_sales).T
-                df.columns = ['Nome', 'Tipo', 'Preço', 'Quantidade']
+                df.columns = ['id','Nome', 'Tipo', 'Preço', 'Quantidade']
                 df['Preço Total'] = df['Preço'] * df['Quantidade']
                 print(df)
                 print(' ')
