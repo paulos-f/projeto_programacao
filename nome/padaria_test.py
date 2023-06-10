@@ -1,6 +1,8 @@
+import copy
+
 import numpy as np
 import pandas as pd
-import copy
+
 
 def get_answer_alternatives(): # menu das opções, apenas possível escolher entre 1,2,3,4,5
     resposta = None
@@ -64,15 +66,13 @@ def check_product_name(name): # verifica se existe produto com o nome no banco d
     for i in list(dict_products.keys()):
         if name == dict_products[i][0]:
             return i
-        else:
-            return False
+    return False
 
 def check_indet(cod): # verifica se existe produto com o id no banco de dados
     for i in list(dict_products.keys()):
         if cod == i:
             return i
-        else:
-            return False
+    return False
         
 
 def check_quant_product(ident,quant): # verifica a quantidade existente do produto especificado no parametro da função
@@ -84,33 +84,33 @@ def check_quant_product(ident,quant): # verifica a quantidade existente do produ
 
 resposta = get_answer_alternatives()
 
-dict_products = dict()
-dict_products = {2814: ['Pão Francês', 'Pão', 2.5, 50],
-                  3940: ['Bolo de Chocolate', 'Bolo', 25.0, 10],
-                  6528: ['Croissant', 'Salgado', 3.0, 20],
-                  4015: ['Rosquinha', 'Doce', 1.5, 30],
-                  1778: ['Pão de Queijo', 'Salgado', 2.0, 40],
-                  2641: ['Torta de Morango', 'Torta', 30.0, 5],
-                  5388: ['Cookie', 'Doce', 1.0, 15],
-                  1516: ['Pão Integral', 'Pão', 3.0, 25],
-                  3709: ['Pastel de Carne', 'Salgado', 2.5, 10],
-                  1978: ['Bolo de Cenoura', 'Bolo', 20.0, 8],
-                  9487: ['Sonho de Creme', 'Doce', 2.0, 12],
-                  6067: ['Pão de Alho', 'Salgado', 2.5, 18], 
-                  2474: ['Biscoito de Aveia', 'Doce', 1.5, 20], 
-                  1993: ['Pão Australiano', 'Pão', 3.5, 15], 
-                  5414: ['Coxinha', 'Salgado', 2.0, 25], 
-                  8635: ['Água', 'Ingrediente', 1.0, 100],
-                  5629: ['Farinha de Trigo', 'Ingrediente', 3.0, 50], 
-                  1898: ['Fermento', 'Ingrediente', 2.5, 30],
-                  9985: ['Açúcar', 'Ingrediente', 2.0, 40], 
-                  9858: ['Leite', 'Ingrediente', 2.0, 35], 
-                  2882: ['Ovos', 'Ingrediente', 1.5, 60], 
-                  8007: ['Manteiga', 'Ingrediente', 3.0, 25], 
-                  990: ['Sal', 'Ingrediente', 1.0, 75], 
-                  3760: ['Chocolate em Pó', 'Ingrediente', 4.0, 15],
-                  742: ['Fermento Biológico', 'Ingrediente', 2.0, 20],
-                  7193: ['farinha', 'po', 10.87, 1000]}
+#dict_products = dict()
+dict_products = {2814: ['pao frances', 'pao', 2.5, 50], 
+                 3940: ['bolo de chocolate', 'bolo', 25.0, 10],
+                 6528: ['croissant', 'salgado', 3.0, 20], 
+                 4015: ['rosquinha', 'doce', 1.5, 30],
+                 1778: ['pao de queijo', 'salgado', 2.0, 40], 
+                 2641: ['torta de morango', 'torta', 30.0, 5],
+                 5388: ['cookie', 'doce', 1.0, 15], 
+                 1516: ['pao integral', 'pao', 3.0, 25],
+                 3709: ['pastel de carne', 'salgado', 2.5, 10], 
+                 1978: ['bolo de cenoura', 'bolo', 20.0, 8], 
+                 9487: ['sonho de creme', 'doce', 2.0, 12], 
+                 6067: ['pao de alho', 'salgado', 2.5, 18],
+                 2474: ['biscoito de aveia', 'doce', 1.5, 20],
+                 1993: ['pao australiano', 'pao', 3.5, 15],
+                 5414: ['coxinha', 'salgado', 2.0, 25], 
+                 8635: ['agua', 'ingrediente', 1.0, 100],
+                 5629: ['farinha de trigo', 'ingrediente', 3.0, 50],
+                 1898: ['fermento', 'ingrediente', 2.5, 30], 
+                 9985: ['acucar', 'ingrediente', 2.0, 40], 
+                 9858: ['leite', 'ingrediente', 2.0, 35], 
+                 2882: ['ovos', 'ingrediente', 1.5, 60], 
+                 8007: ['manteiga', 'ingrediente', 3.0, 25],
+                 990: ['sal', 'ingrediente', 1.0, 75], 
+                 3760: ['chocolate em po', 'ingrediente', 4.0, 15], 
+                 742: ['fermento biologico', 'ingrediente', 2.0, 20], 
+                 7193: ['farinha', 'po', 10.87, 1000]}
 
 dict_rel_products = copy.deepcopy(dict_products)
 dict_rel_sales = dict()
@@ -145,7 +145,7 @@ while resposta != 5:
     elif resposta == 2:
         repetir = 's'
         while repetir == 's':
-            nome_venda = assert_type_answer('Qual produto você deseja realizar a venda?(Nome)','string')
+            nome_venda = assert_type_answer('Qual produto você deseja realizar a venda?(Nome)','string').lower()
             if check_product_name(nome_venda) == False:
                 print('Produto não encontrado no banco de dados')
             else:
@@ -158,8 +158,8 @@ while resposta != 5:
                 else:
                     dict_products[ident][3] = dict_products[ident][3] - quant_venda
 
-                    dict_rel_sales[count_sales] = copy.deepcopy(dict_products)
-                    dict_rel_sales[count_sales][ident][3] = quant_venda
+                    dict_rel_sales[count_sales] = copy.deepcopy(dict_products[ident])
+                    dict_rel_sales[count_sales][3] = quant_venda
                     count_sales += 1
                     
                     print('Venda realizada com sucesso!')
@@ -246,6 +246,7 @@ while resposta != 5:
             answer = assert_type_answer('Deseja gerar qual tipo de relatório? [Produtos(P) / Vendas(V)]','string').lower()
             if answer == 'p':
                 print(' ')
+                dict_rel_products = copy.deepcopy(dict_products)
                 df = pd.DataFrame(dict_rel_products).T
                 df.columns = ['Nome', 'Tipo', 'Preço', 'Quantidade']
                 df.index.name = 'id'
@@ -255,7 +256,7 @@ while resposta != 5:
                 print(' ')
                 df = pd.DataFrame(dict_rel_sales).T
                 df.columns = ['Nome', 'Tipo', 'Preço', 'Quantidade']
-                df.index.name = 'id'
+                df['Preço Total'] = df['Preço'] * df['Quantidade']
                 print(df)
                 print(' ')
             else:
