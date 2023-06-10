@@ -1,0 +1,7 @@
+id_sale	id	Nome	Tipo	Preço	Quantidade
+0	1	2882	ovos	ingrediente	1.5	10
+1	2	7193	farinha	po	10.87	2
+2	3	2882	ovos	ingrediente	1.5	2
+3	4	9985	acucar	ingrediente	2.0	10
+4	5	7193	farinha	po	10.87	33
+5	6	7193	farinha	po	10.87	65

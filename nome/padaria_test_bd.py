@@ -1,5 +1,4 @@
 import copy
-
 import numpy as np
 import pandas as pd
 
@@ -84,17 +83,26 @@ def check_quant_product(ident,quant): # verifica a quantidade existente do produ
 
 resposta = get_answer_alternatives()
 
-df_bd = pd.read_csv('dict_products.txt', sep='\t')
-df_bd.rename(columns={'Unnamed: 0': 'id'}, inplace=True)
-for i in range(len(df_bd)):
-    temp_list = list(df_bd.iloc[i])
-    id_product = temp_list.pop(0)
-    new_dict[id_product] = temp_list
-
-dict_products = new_dict
+new_dict_products = {}
+df_products = pd.read_csv('dict_products.txt', sep='\t')
+df_products.rename(columns={'Unnamed: 0': 'id'}, inplace=True)
+for i in range(len(df_products)):
+    temp_list_product = list(df_products.iloc[i])
+    id_product = temp_list_product.pop(0)
+    new_dict_products[id_product] = temp_list_product
+    
+dict_products = new_dict_products
+    
+new_dict_sales = {}
+df_sales = pd.read_csv('dict_rel_sales.txt', sep='\t')
+for i in range(len(df_sales)):
+    temp_list_sale = list(df_sales.iloc[i])
+    id_product = temp_list_sale.pop(0)
+    new_dict_sales[id_product] = temp_list_sale
+    
+dict_rel_sales = new_dict_sales
 
 dict_rel_products = copy.deepcopy(dict_products)
-dict_rel_sales = dict()
 
 count_sales = 1
 
@@ -142,8 +150,13 @@ while resposta != 5:
                     temp = copy.deepcopy(dict_products[ident])
                     temp.insert(0,ident)
                     
-                    dict_rel_sales[count_sales] = temp
-                    dict_rel_sales[count_sales][4] = quant_venda
+                    if len(list(dict_rel_sales.keys())) == 0:
+                        id_sale_next = 1
+                    else:
+                        id_sale_next = max(list(dict_rel_sales.keys())) + 1
+                    
+                    dict_rel_sales[id_sale_next] = temp
+                    dict_rel_sales[id_sale_next][4] = quant_venda
                     count_sales += 1
                     
                     print('Venda realizada com sucesso!')
@@ -238,8 +251,8 @@ while resposta != 5:
                 print(' ')
             elif answer == 'v':
                 print(' ')
-                df = pd.DataFrame(dict_rel_sales).T
-                df.columns = ['id','Nome', 'Tipo', 'Preço', 'Quantidade']
+                df = pd.DataFrame(dict_rel_sales).T.reset_index()
+                df.columns = ['id_sale','id','Nome', 'Tipo', 'Preço', 'Quantidade']
                 df['Preço Total'] = df['Preço'] * df['Quantidade']
                 print(df)
                 print(' ')
@@ -258,7 +271,10 @@ while resposta != 5:
 
 df_products = pd.DataFrame.from_dict(dict_products, orient='index')
 df_products.columns = ['Nome', 'Tipo', 'Preço', 'Quantidade']
-
 df_products.to_csv('dict_products.txt', sep='\t', index=True)
+
+df_sales = pd.DataFrame.from_dict(dict_rel_sales, orient='index').reset_index()
+df_sales.columns = ['id_sale','id','Nome', 'Tipo', 'Preço', 'Quantidade']
+df_sales.to_csv('dict_rel_sales.txt', sep='\t', index=True,index_label=False)
         
 print('Te vejo em breve!!!')
