@@ -1,14 +1,4 @@
 
-print('\n1 - Cadastrar Produto.')
-print('2 - Realizar Venda.')
-print('3 - Alterar Produto.')
-print('4 - Relatórios.')
-print('5 – Sair.')
-
-
-resposta = int(input('\nOlá, o que você deseja fazer? '))
-
-indentificador_do_produto = 0
 
 dict_nome_produtos = {"pão d'agua" : ["pão", 0.99, 100]}
 
@@ -16,15 +6,24 @@ dict_codigo_produtos = {}
 
 dict_registro_vendas = {}
 
+def alternativas_inicio():
+    escolha = None
+    while escolha not in [1, 2, 3, 4, 5]:
+        escolha = int(input('Escolha uma das opções: \n1 - Cadastrar Produto \n2 - Realizar Venda \n3 - Alterar Produto \n4 - Relatórios  \n5 - Sair \n'))
+    return escolha
+
+
+resposta = alternativas_inicio()
+
+
+if resposta == 5:
+        print('Te vejo em breve!!!')
+
+
+
 while(True):
 
-
-    if resposta == 5:
-        print('Te vejo em breve!!!')
-        break
-
-
-    elif resposta == 1:
+    if resposta == 1:
 
 
         while(True):
@@ -55,7 +54,7 @@ while(True):
                 pass
             elif repitir == 'N':
                 break
-        break
+        alternativas_inicio()
 
 
 
@@ -89,8 +88,9 @@ while(True):
             pass
         elif repitir2 == 'N':
             break
+    alternativas_inicio()
         
 
 
 print(dict_nome_produtos)
-print(dict_codigo_produtos)
+print(dict_codigo_produtos),
