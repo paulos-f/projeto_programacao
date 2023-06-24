@@ -35,7 +35,10 @@ dict_registro_vendas = {}
 
 
 
-def assert_type_answer(phrase, data_type):
+
+
+
+def assert_type_answer(phrase, data_type): ### assegura que as variaveis estão corretas.
     answer = None
     case_condition = False
     while answer == None or case_condition != True or answer == '':
@@ -55,13 +58,18 @@ def assert_type_answer(phrase, data_type):
     return answer
 
 
+
+
+
 def alternativas_inicio(): ### gerar a tela inicial
     escolha = None
     while escolha not in [1, 2, 3, 4, 5]:
         escolha = int(input('Escolha uma das opções: \n1 - Cadastrar Produto \n2 - Realizar Venda \n3 - Alterar Produto \n4 - Relatórios  \n5 - Sair \n'))
-        system("cls")
     return escolha
 # arrumar string
+
+
+
 
 def generate_identifier(): # gera automaticamente um id entre 1 e 10000 único
     ident = None
@@ -72,17 +80,24 @@ def generate_identifier(): # gera automaticamente um id entre 1 e 10000 único
 
 
 
-resposta = alternativas_inicio() ### variavel resposta para o menu inicial
 
 
+while (True):
 
-while(True):
+    resposta = alternativas_inicio() ### variavel resposta para o menu inicial
+
+
 
     if resposta == 5: ### codigo para encerramento
-            print('Te vejo em breve!!!')
+        print('Te vejo em breve!!!')
+        break
 
 
-    if resposta == 1: ### codigo para cadastrar produto
+
+
+
+
+    elif resposta == 1: ### codigo para cadastrar produto
         
         system("cls") ### limpa o terminal
 
@@ -115,8 +130,9 @@ while(True):
             if repitir.upper() == 'S':
                 pass
             elif repitir.upper() == 'N':
-                break
-        alternativas_inicio()
+                break     
+        
+
 
 
     elif resposta == 2:
@@ -156,10 +172,4 @@ while(True):
                 pass
             elif repitir2.upper() == 'N':
                 break
-        alternativas_inicio()
         
-
-
-print(dict_produtos)
-print(dict_produtos[1][1])
-print(dict_codigo_produtos)
