@@ -29,7 +29,6 @@ dict_produtos = {2814: ['Pão Francês', 'Pão', 2.5, 50],
                   742: ['Fermento Biológico', 'Ingrediente', 2.0, 20],
                   7193: ['farinha', 'po', 10.87, 1000]}
 
-dict_codigo_produtos = {}
 
 dict_registro_vendas = {}
 
@@ -56,7 +55,7 @@ def escrita_campo_correta(phrase, data_type): ### assegura que as variaveis est�
     return answer
 
 
-def alternativas_alteração(): ### alterar alguma coisa
+def alternativas_alteração(): ### alterar alguma informação de um produto
     escolha_alterar = None
     while escolha_alterar not in [1, 2, 3, 4, 5]:
         escolha_alterar = int(input('Você deseja alterar o que? \n 1-Codigo \n 2-Nome \n 3-tipo \n 4-valor \n 5-estoque '))
@@ -127,9 +126,7 @@ while (True):
             lista_tipo_preço_estoque.append(preço_produto)
             lista_tipo_preço_estoque.append(estoque_produto)
                 
-            dict_produtos[indentificador_do_produto] = lista_tipo_preço_estoque
-
-            dict_codigo_produtos.update({indentificador_do_produto : nome_produto})
+            dict_produtos[indentificador_do_produto] = lista_tipo_preço_estoque ### funciona como um .update
 
             print('Cadastro Realizado com sucesso!!!!')
 
@@ -142,7 +139,7 @@ while (True):
 
 
 
-    elif resposta == 2:
+    elif resposta == 2:  ### codigo para realizar a venda de um produto
         
         system("cls") ### limpa o terminal
         
@@ -150,22 +147,23 @@ while (True):
         while (True):
             nome_venda = escrita_campo_correta('Qual produto você deseja realizar a venda?(nome) ', 'string')
             
-            if checando_produto_dicionario(nome_venda) == False:
+            if checando_produto_dicionario(nome_venda) == False: ###Verifica se o produto está no dicionario
                 print('Produto não encontrado!!!')
+
             else:
 
-                lista_codigo_produto = dict_produtos.get(checando_produto_dicionario(nome_venda))
+                lista_codigo_produto = dict_produtos.get(checando_produto_dicionario(nome_venda)) ### transforma a variavel na lista correspondente ao codigo do produto
                 quant_estoque = lista_codigo_produto[3]
                 quant_venda = int(input('Quantos {} você deseja vender? '.format(nome_venda)))
                 
 
                 
-                if quant_venda > quant_estoque:
+                if quant_venda > quant_estoque: ### verifica se o pedido não excede o estoque
                     print('Você tem {} {} em estoque'.format(quant_estoque, nome_venda))
                     print('Não há estoque suficiente para esse produto...')
                 
                 
-                else:
+                else: #### realisa a venda do produto 
                     dict_registro_vendas.update({nome_venda : quant_venda})
                     quant_estoque = quant_estoque - quant_venda
                     dict_produtos.update({checando_produto_dicionario(nome_venda) : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], quant_estoque]})
@@ -187,7 +185,7 @@ while (True):
         while (True):
             decidir_modo_alterção = escrita_campo_correta('Você quer pesquisar o produto pelo código ou pelo nome?(C / N) ', 'string')
 
-            if decidir_modo_alterção.upper() == 'C':
+            if decidir_modo_alterção.upper() == 'C': ### alterações feitas via codigo
 
                 produto_codigo_alteração = escrita_campo_correta('Qual produto você deseja realizar a alteração? ', 'int')
 
@@ -203,13 +201,12 @@ while (True):
                         novo_codigo = escrita_campo_correta('qual o numero do novo codigo? ', 'int')
                         dict_produtos.update({novo_codigo : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], lista_codigo_produto[3]]})
                         dict_produtos.pop(produto_codigo_alteração)
-                        print(dict_produtos)
 
 
-                repitir2 = input('Deseja fazer outra alteração?(S/N) ')
-                if repitir2.upper() == 'S':
+                repitir3 = input('Deseja fazer outra alteração?(S/N) ')
+                if repitir3.upper() == 'S':
                     pass
-                elif repitir2.upper() == 'N':
+                elif repitir3.upper() == 'N':
                     break
 
 
@@ -218,7 +215,7 @@ while (True):
 
 
 
-            elif decidir_modo_alterção.upper() == 'N':
+            elif decidir_modo_alterção.upper() == 'N': ### alterações feitas via nome
 
                 produto_nome_alteração = escrita_campo_correta('Qual produto você deseja realizar alteração? ', 'string')
                 
@@ -236,10 +233,10 @@ while (True):
                         print(dict_produtos)
 
                 
-                repitir3 = input('Deseja fazer outra alteração?(S/N) ')
-                if repitir3.upper() == 'S':
+                repitir4 = input('Deseja fazer outra alteração?(S/N) ')
+                if repitir4.upper() == 'S':
                     pass
-                elif repitir3.upper() == 'N':
+                elif repitir4.upper() == 'N':
                     break
 
 print(dict_produtos)
