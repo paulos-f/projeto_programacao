@@ -202,6 +202,16 @@ while (True):
                         dict_produtos.update({novo_codigo : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], lista_codigo_produto[3]]})
                         dict_produtos.pop(produto_codigo_alteração)
 
+                    elif escolha_alteração == 2:
+                        lista_nome_produto = dict_produtos.get(produto_codigo_alteração)
+                        novo_nome = escrita_campo_correta('qual o nome do novo produto? ', 'string')
+                        dict_produtos.update({produto_codigo_alteração : [novo_nome, lista_nome_produto[1], lista_nome_produto[2], lista_nome_produto[3]]})
+                        
+                    elif escolha_alteração == 3:
+                        lista_tipo_produto = dict_produtos.get(produto_codigo_alteração)
+                        novo_tipo = escrita_campo_correta('qual o novo tipo do produto? ', 'string')
+                        dict_produtos.update({produto_codigo_alteração : [lista_tipo_produto[0], novo_tipo, lista_tipo_produto[2], lista_tipo_produto[3]]})
+
 
                 repitir3 = input('Deseja fazer outra alteração?(S/N) ')
                 if repitir3.upper() == 'S':
@@ -226,9 +236,9 @@ while (True):
                     escolha_alteração = alternativas_alteração()
                     
                     if escolha_alteração == 1:
-                        lista_nome_produto = dict_produtos.get(checando_produto_dicionario(produto_nome_alteração))
+                        lista_codigo_produto = dict_produtos.get(checando_produto_dicionario(produto_nome_alteração))
                         novo_codigo = escrita_campo_correta('qual o numero do novo codigo? ', 'int')
-                        dict_produtos.update({novo_codigo : [lista_nome_produto[0], lista_nome_produto[1], lista_nome_produto[2], lista_nome_produto[3]]})
+                        dict_produtos.update({novo_codigo : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], lista_codigo_produto[3]]})
                         dict_produtos.pop(checando_produto_dicionario(produto_nome_alteração))
                         print(dict_produtos)
 
