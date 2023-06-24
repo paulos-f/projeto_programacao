@@ -30,15 +30,13 @@ dict_produtos = {2814: ['Pão Francês', 'Pão', 2.5, 50],
                   7193: ['farinha', 'po', 10.87, 1000]}
 
 dict_codigo_produtos = {}
- 
+
 dict_registro_vendas = {}
 
 
 
 
-
-
-def assert_type_answer(phrase, data_type): ### assegura que as variaveis estão corretas.
+def escrita_campo_correta(phrase, data_type): ### assegura que as variaveis estão corretas.
     answer = None
     case_condition = False
     while answer == None or case_condition != True or answer == '':
@@ -71,14 +69,18 @@ def alternativas_inicio(): ### gerar a tela inicial
 
 
 
-def generate_identifier(): # gera automaticamente um id entre 1 e 10000 único
-    ident = None
-    while ident in list(dict_produtos.keys()) or ident == None:
-        ident = np.random.choice(np.arange(0,10_000))
-    return ident
+def gerando_codigo(): # gera automaticamente um id entre 1 e 10000 único
+    codigo = None
+    while codigo in list(dict_produtos.keys()) or codigo == None:
+        codigo = np.random.choice(np.arange(0,10_000))
+    return codigo
 
 
-
+def checando_produto_dicionario(nome): # verifica se existe produto com o nome no banco de dados
+    for i in list(dict_produtos.keys()):
+        if nome == dict_produtos[i][0]:
+            return i
+    return False
 
 
 
@@ -106,14 +108,14 @@ while (True):
 
             lista_tipo_preço_estoque = []
                 
-            indentificador_do_produto = generate_identifier()
+            indentificador_do_produto = gerando_codigo()
             
             print(indentificador_do_produto)
             
-            nome_produto = assert_type_answer('Qual o nome do produto? ', 'string')
-            tipo_produto = assert_type_answer('Qual o tipo do produto? ', 'string')
-            preço_produto = assert_type_answer('Qual o preço do produto? ', 'float')
-            estoque_produto = assert_type_answer('Qual o estoque incial do produto? ', 'int')
+            nome_produto = escrita_campo_correta('Qual o nome do produto? ', 'string')
+            tipo_produto = escrita_campo_correta('Qual o tipo do produto? ', 'string')
+            preço_produto = escrita_campo_correta('Qual o preço do produto? ', 'float')
+            estoque_produto = escrita_campo_correta('Qual o estoque incial do produto? ', 'int')
 
 
             lista_tipo_preço_estoque.append(nome_produto) 
@@ -125,6 +127,7 @@ while (True):
 
             dict_codigo_produtos.update({indentificador_do_produto : nome_produto})
 
+            print('Cadastro Realizado com sucesso!!!!')
 
             repitir = input('Deseja adicionar outro produto?(S/N) ')
             if repitir.upper() == 'S':
@@ -138,38 +141,41 @@ while (True):
     elif resposta == 2:
         
         system("cls") ### limpa o terminal
-            
-            
+        
+
         while (True):
-            nome_venda = assert_type_answer('Qual produto você deseja realizar a venda? ', 'string')
+            nome_venda = escrita_campo_correta('Qual produto você deseja realizar a venda?(nome) ', 'string')
             
-            if nome_venda in dict_produtos.items():
-                
-                confirmação_estoque = dict_produtos.get(nome_venda)
-                quant_estoque = confirmação_estoque[2]
+            if checando_produto_dicionario(nome_venda) == False:
+                print('Produto não encontrado!!!')
+            else:
+
+                confirmação_estoque = dict_produtos.get(checando_produto_dicionario(nome_venda))
+                quant_estoque = confirmação_estoque[3]
                 quant_venda = int(input('Quantos {} você deseja vender? '.format(nome_venda)))
                 
-                    
+
+                
                 if quant_venda > quant_estoque:
                     print('Você tem {} {} em estoque'.format(quant_estoque, nome_venda))
                     print('Não há estoque suficiente para esse produto...')
                 
                 
                 else:
-                        
                     dict_registro_vendas.update({nome_venda : quant_venda})
                     quant_estoque = quant_estoque - quant_venda
-                    dict_produtos.update({nome_venda : [confirmação_estoque[0], confirmação_estoque[1], quant_estoque]})
-                    print('Sobrou {} no estoque'.format(quant_estoque))
-                    print(dict_registro_vendas)  
-                        
-                
-
-                # o problema atual é que o registro de vendas está atualizando, porém, ele apaga os dados das ultimas transações  
-
+                    dict_produtos.update({checando_produto_dicionario(nome_venda) : [confirmação_estoque[0], confirmação_estoque[1], confirmação_estoque[2], quant_estoque]})
+                print('Sobrou {} no estoque'.format(quant_estoque))
+                print(dict_registro_vendas)   
+                # o problema atual é que o registro de vendas está atualizando, porém, ele apaga os dados das ultimas transações
+            
             repitir2 = input('Deseja vender outro produto?(S/N) ')
             if repitir2.upper() == 'S':
                 pass
             elif repitir2.upper() == 'N':
                 break
-        
+
+print(dict_produtos)
+    
+
+    

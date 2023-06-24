@@ -67,7 +67,7 @@ while(True):
             nome_venda = input('Qual produto você deseja realizar a venda?(Nome) ')
             confirmação_estoque = dict_nome_produtos.get(nome_venda)
             quant_estoque = confirmação_estoque[2]
-            quant_venda = int(input('Quantos {} você deseja vender? '.format(nome_venda))) 
+            quant_venda = int(input('Quantos {} você deseja vender? '.format(nome_venda)))
             
 
             
