@@ -56,7 +56,11 @@ def escrita_campo_correta(phrase, data_type): ### assegura que as variaveis est�
     return answer
 
 
-
+def alternativas_alteração(): ### alterar alguma coisa
+    escolha_alterar = None
+    while escolha_alterar not in [1, 2, 3, 4, 5]:
+        escolha_alterar = int(input('Você deseja alterar o que? \n 1-Codigo \n 2-Nome \n 3-tipo \n 4-valor \n 5-estoque '))
+    return escolha_alterar
 
 
 def alternativas_inicio(): ### gerar a tela inicial
@@ -64,7 +68,7 @@ def alternativas_inicio(): ### gerar a tela inicial
     while escolha not in [1, 2, 3, 4, 5]:
         escolha = int(input('Escolha uma das opções: \n1 - Cadastrar Produto \n2 - Realizar Venda \n3 - Alterar Produto \n4 - Relatórios  \n5 - Sair \n'))
     return escolha
-# arrumar string
+
 
 
 
@@ -150,8 +154,8 @@ while (True):
                 print('Produto não encontrado!!!')
             else:
 
-                confirmação_estoque = dict_produtos.get(checando_produto_dicionario(nome_venda))
-                quant_estoque = confirmação_estoque[3]
+                lista_codigo_produto = dict_produtos.get(checando_produto_dicionario(nome_venda))
+                quant_estoque = lista_codigo_produto[3]
                 quant_venda = int(input('Quantos {} você deseja vender? '.format(nome_venda)))
                 
 
@@ -164,9 +168,10 @@ while (True):
                 else:
                     dict_registro_vendas.update({nome_venda : quant_venda})
                     quant_estoque = quant_estoque - quant_venda
-                    dict_produtos.update({checando_produto_dicionario(nome_venda) : [confirmação_estoque[0], confirmação_estoque[1], confirmação_estoque[2], quant_estoque]})
+                    dict_produtos.update({checando_produto_dicionario(nome_venda) : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], quant_estoque]})
                 print('Sobrou {} no estoque'.format(quant_estoque))
-                print(dict_registro_vendas)   
+                print(dict_registro_vendas)  
+                print('Venda realizada com sucesso!!!')
                 # o problema atual é que o registro de vendas está atualizando, porém, ele apaga os dados das ultimas transações
             
             repitir2 = input('Deseja vender outro produto?(S/N) ')
@@ -175,7 +180,40 @@ while (True):
             elif repitir2.upper() == 'N':
                 break
 
-print(dict_produtos)
     
+    elif resposta == 3:
+       
+       
+        while (True):
+            decidir_modo_alterção = escrita_campo_correta('Você quer pesquisar o produto pelo código ou pelo nome?(C / N) ', 'string')
+
+            if decidir_modo_alterção.upper() == 'C':
+
+                codigo_alteração = escrita_campo_correta('Qual produto você deseja realizar a alteração? ', 'int')
+
+                if codigo_alteração not in dict_produtos.keys():
+                    print('Codigo invalido!!!')
+
+
+                else:
+                    escolha_alteração = alternativas_alteração()
+
+                    if escolha_alteração == 1:
+                        lista_codigo_produto = dict_produtos.get(codigo_alteração)
+                        novo_codigo = escrita_campo_correta('qual o numero do novo codigo? ', 'int')
+                        dict_produtos.update({novo_codigo : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], lista_codigo_produto[3]]})
+                        dict_produtos.pop(codigo_alteração)
+                        print(dict_produtos)
+
+                    
+                
+                repitir2 = input('Deseja fazer outra alteração?(S/N) ')
+                if repitir2.upper() == 'S':
+                    pass
+                elif repitir2.upper() == 'N':
+                    break
+
+print(dict_produtos)
+
 
     
