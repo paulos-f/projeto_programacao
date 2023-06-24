@@ -189,9 +189,9 @@ while (True):
 
             if decidir_modo_alterção.upper() == 'C':
 
-                codigo_alteração = escrita_campo_correta('Qual produto você deseja realizar a alteração? ', 'int')
+                produto_codigo_alteração = escrita_campo_correta('Qual produto você deseja realizar a alteração? ', 'int')
 
-                if codigo_alteração not in dict_produtos.keys():
+                if produto_codigo_alteração not in dict_produtos.keys():
                     print('Codigo invalido!!!')
 
 
@@ -199,18 +199,47 @@ while (True):
                     escolha_alteração = alternativas_alteração()
 
                     if escolha_alteração == 1:
-                        lista_codigo_produto = dict_produtos.get(codigo_alteração)
+                        lista_codigo_produto = dict_produtos.get(produto_codigo_alteração)
                         novo_codigo = escrita_campo_correta('qual o numero do novo codigo? ', 'int')
                         dict_produtos.update({novo_codigo : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], lista_codigo_produto[3]]})
-                        dict_produtos.pop(codigo_alteração)
+                        dict_produtos.pop(produto_codigo_alteração)
                         print(dict_produtos)
 
-                    
-                
+
                 repitir2 = input('Deseja fazer outra alteração?(S/N) ')
                 if repitir2.upper() == 'S':
                     pass
                 elif repitir2.upper() == 'N':
+                    break
+
+
+
+
+
+
+
+            elif decidir_modo_alterção.upper() == 'N':
+
+                produto_nome_alteração = escrita_campo_correta('Qual produto você deseja realizar alteração? ', 'string')
+                
+                if checando_produto_dicionario(produto_nome_alteração) == False:
+                    print('Produto não encontrado!!!')
+                
+                else:
+                    escolha_alteração = alternativas_alteração()
+                    
+                    if escolha_alteração == 1:
+                        lista_nome_produto = dict_produtos.get(checando_produto_dicionario(produto_nome_alteração))
+                        novo_codigo = escrita_campo_correta('qual o numero do novo codigo? ', 'int')
+                        dict_produtos.update({novo_codigo : [lista_nome_produto[0], lista_nome_produto[1], lista_nome_produto[2], lista_nome_produto[3]]})
+                        dict_produtos.pop(checando_produto_dicionario(produto_nome_alteração))
+                        print(dict_produtos)
+
+                
+                repitir3 = input('Deseja fazer outra alteração?(S/N) ')
+                if repitir3.upper() == 'S':
+                    pass
+                elif repitir3.upper() == 'N':
                     break
 
 print(dict_produtos)
