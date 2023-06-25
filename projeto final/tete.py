@@ -1,6 +1,6 @@
-import numpy as np
-import json
-from os import system
+import numpy as np ### usamos para criar o gerador de codigos
+import json   ### vamos usar para registrar os dados
+from os import system ### usamos para limpar a tela nas trocas de ações
 
 dict_produtos = {2814: ['Pão Francês', 'Pão', 2.5, 50],
                   3940: ['Bolo de Chocolate', 'Bolo', 25.0, 10],
@@ -79,7 +79,7 @@ def gerando_codigo(): # gera automaticamente um id entre 1 e 10000 único
     return codigo
 
 
-def checando_produto_dicionario(nome): # verifica se existe produto com o nome no banco de dados
+def checando_produto_dicionario(nome): # verifica se existe produto com o nome no banco de dados e coleta o codigo do produto caso seja colocado o nome dele
     for i in list(dict_produtos.keys()):
         if nome == dict_produtos[i][0]:
             return i
@@ -166,9 +166,8 @@ while (True):
                     dict_registro_vendas.update({nome_venda : quant_venda})
                     quant_estoque = quant_estoque - quant_venda
                     dict_produtos.update({checando_produto_dicionario(nome_venda) : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], quant_estoque]})
-                print('Sobrou {} no estoque'.format(quant_estoque))
-                print(dict_registro_vendas)  
-                print('Venda realizada com sucesso!!!')
+                    print('Sobrou {} no estoque'.format(quant_estoque))
+                    print('Venda realizada com sucesso!!!')
                 # o problema atual é que o registro de vendas está atualizando, porém, ele apaga os dados das ultimas transações
             
             repitir2 = input('Deseja vender outro produto?(S/N) ')
@@ -183,47 +182,49 @@ while (True):
         system("cls")
 
         while (True):
-            decidir_modo_alterção = escrita_campo_correta('Você quer pesquisar o produto pelo código ou pelo nome?(C / N) ', 'string')
+            decidir_modo_alterção = escrita_campo_correta('Você quer pesquisar o produto pelo código ou pelo nome?(C / N) ', 'string') ### solicitando para o usuario se ele deseja pesquisar via nome ou codigo
 
             if decidir_modo_alterção.upper() == 'C': ### alterações feitas via codigo
 
-                codigo_produto_alteração = escrita_campo_correta('Qual produto você deseja realizar a alteração? ', 'int')
+                codigo_produto_alteração = escrita_campo_correta('Qual produto você deseja realizar a alteração? ', 'int') ## pegando o codigo do produto
 
-                if codigo_produto_alteração not in dict_produtos.keys():
-                    print('Codigo invalido!!!')
+                if codigo_produto_alteração not in dict_produtos.keys(): ### certificando que ele está no dicionario
+                    print('Codigo inexistente!!!')
 
 
                 else:
-                    escolha_alteração = alternativas_alteração()
+                    escolha_alteração = alternativas_alteração() ### chamando a função que é menu de alterações
 
-                    if escolha_alteração == 1:
-                        lista_codigo_produto = dict_produtos.get(codigo_produto_alteração)
+                    if escolha_alteração == 1: ### mudando o codigo
+                        lista_codigo_produto = dict_produtos.get(codigo_produto_alteração)  ### usando o codigo dado para receber a lista com as informações
                         novo_codigo = escrita_campo_correta('qual o numero do novo codigo? ', 'int')
-                        dict_produtos.update({novo_codigo : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], lista_codigo_produto[3]]})
-                        dict_produtos.pop(codigo_produto_alteração)
+                        dict_produtos.update({novo_codigo : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], lista_codigo_produto[3]]}) ### quando "mudamos" o codigo, na verdade, criamos outro produto. Sendo assim, copiamos os dados do antigo produto para o novo e após isso apagamos o produto antigo.
+                        dict_produtos.pop(codigo_produto_alteração) ### apagando o produto antigo
 
-                    elif escolha_alteração == 2:
+                        ### nos seguintes casos não precisamos fazer isso, devido ao codigo permanecer o mesmo.
+
+                    elif escolha_alteração == 2: ### alterando o nome via codigo
                         lista_nome_produto = dict_produtos.get(codigo_produto_alteração)
                         novo_nome = escrita_campo_correta('qual o nome do novo produto? ', 'string')
                         dict_produtos.update({codigo_produto_alteração : [novo_nome, lista_nome_produto[1], lista_nome_produto[2], lista_nome_produto[3]]})
                         
-                    elif escolha_alteração == 3:
+                    elif escolha_alteração == 3: ### alterando o tipo via codigo
                         lista_tipo_produto = dict_produtos.get(codigo_produto_alteração)
                         novo_tipo = escrita_campo_correta('qual o novo tipo do produto? ', 'string')
                         dict_produtos.update({codigo_produto_alteração : [lista_tipo_produto[0], novo_tipo, lista_tipo_produto[2], lista_tipo_produto[3]]})
 
-                    elif escolha_alteração == 4:
+                    elif escolha_alteração == 4: ### alterando o preço via codigo
                         lista_preço_produto = dict_produtos.get(codigo_produto_alteração)
                         novo_preço = escrita_campo_correta('qual o novo preço do produto? ', 'string')
                         dict_produtos.update({codigo_produto_alteração : [lista_preço_produto[0], lista_preço_produto[1], novo_preço, lista_preço_produto[3]]})
 
-                    elif escolha_alteração ==5:
+                    elif escolha_alteração ==5: ### alterando o estoque via codigo
                         lista_estoque_produto = dict_produtos.get(codigo_produto_alteração)
                         novo_estoque = escrita_campo_correta('Qual é o novo estoque do produto? ', 'string')
                         dict_produtos.update({codigo_produto_alteração : [lista_estoque_produto[0], lista_estoque_produto[1], lista_estoque_produto[2], novo_estoque]})
 
 
-                repitir3 = input('Deseja fazer outra alteração?(S/N) ')
+                repitir3 = input('Deseja fazer outra alteração?(S/N) ') ### confirmando se o usuario deseja fazer mais alguma alteração
                 if repitir3.upper() == 'S':
                     pass
                 elif repitir3.upper() == 'N':
@@ -239,7 +240,7 @@ while (True):
 
                 produto_nome_alteração = escrita_campo_correta('Qual produto você deseja realizar alteração? ', 'string')
                 
-                if checando_produto_dicionario(produto_nome_alteração) == False:
+                if checando_produto_dicionario(produto_nome_alteração) == False: ### usando a função para pegar o codigo do produto e em seguida verificando se ele está no estoque
                     print('Produto não encontrado!!!')
                 
                 else:
@@ -253,24 +254,24 @@ while (True):
                         print(dict_produtos)
 
                     elif escolha_alteração == 2:
-                        lista_nome_produto = dict_produtos.get(codigo_produto_alteração)
+                        lista_nome_produto = dict_produtos.get(checando_produto_dicionario(produto_nome_alteração))
                         novo_nome = escrita_campo_correta('qual o nome do novo produto? ', 'string')
-                        dict_produtos.update({codigo_produto_alteração : [novo_nome, lista_nome_produto[1], lista_nome_produto[2], lista_nome_produto[3]]})
+                        dict_produtos.update({checando_produto_dicionario(produto_nome_alteração) : [novo_nome, lista_nome_produto[1], lista_nome_produto[2], lista_nome_produto[3]]})
                         
                     elif escolha_alteração == 3:
-                        lista_tipo_produto = dict_produtos.get(codigo_produto_alteração)
+                        lista_tipo_produto = dict_produtos.get(checando_produto_dicionario(produto_nome_alteração))
                         novo_tipo = escrita_campo_correta('qual o novo tipo do produto? ', 'string')
-                        dict_produtos.update({codigo_produto_alteração : [lista_tipo_produto[0], novo_tipo, lista_tipo_produto[2], lista_tipo_produto[3]]})
+                        dict_produtos.update({checando_produto_dicionario(produto_nome_alteração) : [lista_tipo_produto[0], novo_tipo, lista_tipo_produto[2], lista_tipo_produto[3]]})
 
                     elif escolha_alteração == 4:
-                        lista_preço_produto = dict_produtos.get(codigo_produto_alteração)
+                        lista_preço_produto = dict_produtos.get(checando_produto_dicionario(produto_nome_alteração))
                         novo_preço = escrita_campo_correta('qual o novo preço do produto? ', 'string')
-                        dict_produtos.update({codigo_produto_alteração : [lista_preço_produto[0], lista_preço_produto[1], novo_preço, lista_preço_produto[3]]})
+                        dict_produtos.update({checando_produto_dicionario(produto_nome_alteração) : [lista_preço_produto[0], lista_preço_produto[1], novo_preço, lista_preço_produto[3]]})
 
                     elif escolha_alteração ==5:
-                        lista_estoque_produto = dict_produtos.get(codigo_produto_alteração)
+                        lista_estoque_produto = dict_produtos.get(checando_produto_dicionario(produto_nome_alteração))
                         novo_estoque = escrita_campo_correta('Qual é o novo estoque do produto? ', 'string')
-                        dict_produtos.update({codigo_produto_alteração : [lista_estoque_produto[0], lista_estoque_produto[1], lista_estoque_produto[2], novo_estoque]})
+                        dict_produtos.update({checando_produto_dicionario(produto_nome_alteração) : [lista_estoque_produto[0], lista_estoque_produto[1], lista_estoque_produto[2], int(novo_estoque)]}) ### Tivemos que colocar a variavel "novo_estoque" como int, pois quando faziamos as alteraçoes ela salvava como uma string
 
                 
                 repitir4 = input('Deseja fazer outra alteração?(S/N) ')
