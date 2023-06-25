@@ -33,18 +33,8 @@ dict_produtos = {2814: ['Pão Francês', 'Pão', 2.5, 50],
 dict_registro_vendas = {}
 
 
-# Armazenar dados em um arquivo JSON
-with open('dict_produtos.json', 'w') as arquivo:
-    json.dump(dict_produtos, arquivo)
-
-# Carregar dados de um arquivo JSON
-with open('dict_produtos.json', 'r') as arquivo:
-    dict_produtos_carregados = json.load(arquivo)
 
 
-# Armazenar os dados modificados em um arquivo JSON
-with open('dados.json', 'w') as arquivo:
-    json.dump(dict_produtos_carregados, arquivo)
 
 print('Dados armazenados e modificados com sucesso!')
 
@@ -293,4 +283,5 @@ while (True):
                     pass
                 elif repitir4.upper() == 'N':
                     break
+
 
