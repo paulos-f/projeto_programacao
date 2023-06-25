@@ -33,6 +33,20 @@ dict_produtos = {2814: ['Pão Francês', 'Pão', 2.5, 50],
 dict_registro_vendas = {}
 
 
+# Armazenar dados em um arquivo JSON
+with open('dict_produtos.json', 'w') as arquivo:
+    json.dump(dict_produtos, arquivo)
+
+# Carregar dados de um arquivo JSON
+with open('dict_produtos.json', 'r') as arquivo:
+    dict_produtos_carregados = json.load(arquivo)
+
+
+# Armazenar os dados modificados em um arquivo JSON
+with open('dados.json', 'w') as arquivo:
+    json.dump(dict_produtos_carregados, arquivo)
+
+print('Dados armazenados e modificados com sucesso!')
 
 
 def escrita_campo_correta(phrase, data_type): ### assegura que as variaveis estão corretas.
@@ -165,7 +179,7 @@ while (True):
                 else: #### realisa a venda do produto 
                     dict_registro_vendas.update({nome_venda : quant_venda})
                     quant_estoque = quant_estoque - quant_venda
-                    dict_produtos.update({checando_produto_dicionario(nome_venda) : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], quant_estoque]})
+                    dict_produtos.update({checando_produto_dicionario(nome_venda) : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], int(quant_estoque)]})
                     print('Sobrou {} no estoque'.format(quant_estoque))
                     print('Venda realizada com sucesso!!!')
                 # o problema atual é que o registro de vendas está atualizando, porém, ele apaga os dados das ultimas transações
@@ -221,7 +235,7 @@ while (True):
                     elif escolha_alteração ==5: ### alterando o estoque via codigo
                         lista_estoque_produto = dict_produtos.get(codigo_produto_alteração)
                         novo_estoque = escrita_campo_correta('Qual é o novo estoque do produto? ', 'string')
-                        dict_produtos.update({codigo_produto_alteração : [lista_estoque_produto[0], lista_estoque_produto[1], lista_estoque_produto[2], novo_estoque]})
+                        dict_produtos.update({codigo_produto_alteração : [lista_estoque_produto[0], lista_estoque_produto[1], lista_estoque_produto[2], int(novo_estoque)]})
 
 
                 repitir3 = input('Deseja fazer outra alteração?(S/N) ') ### confirmando se o usuario deseja fazer mais alguma alteração
@@ -280,7 +294,3 @@ while (True):
                 elif repitir4.upper() == 'N':
                     break
 
-print(dict_produtos)
-
-
-    
