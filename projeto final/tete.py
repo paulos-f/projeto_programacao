@@ -156,7 +156,6 @@ while (True):
                 quant_estoque = lista_codigo_produto[3]
                 quant_venda = int(input('Quantos {} você deseja vender? '.format(nome_venda)))
                 
-
                 
                 if quant_venda > quant_estoque: ### verifica se o pedido não excede o estoque
                     print('Você tem {} {} em estoque'.format(quant_estoque, nome_venda))
@@ -181,7 +180,8 @@ while (True):
     
     elif resposta == 3:
        
-       
+        system("cls")
+
         while (True):
             decidir_modo_alterção = escrita_campo_correta('Você quer pesquisar o produto pelo código ou pelo nome?(C / N) ', 'string')
 
@@ -251,6 +251,26 @@ while (True):
                         dict_produtos.update({novo_codigo : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], lista_codigo_produto[3]]})
                         dict_produtos.pop(checando_produto_dicionario(produto_nome_alteração))
                         print(dict_produtos)
+
+                    elif escolha_alteração == 2:
+                        lista_nome_produto = dict_produtos.get(codigo_produto_alteração)
+                        novo_nome = escrita_campo_correta('qual o nome do novo produto? ', 'string')
+                        dict_produtos.update({codigo_produto_alteração : [novo_nome, lista_nome_produto[1], lista_nome_produto[2], lista_nome_produto[3]]})
+                        
+                    elif escolha_alteração == 3:
+                        lista_tipo_produto = dict_produtos.get(codigo_produto_alteração)
+                        novo_tipo = escrita_campo_correta('qual o novo tipo do produto? ', 'string')
+                        dict_produtos.update({codigo_produto_alteração : [lista_tipo_produto[0], novo_tipo, lista_tipo_produto[2], lista_tipo_produto[3]]})
+
+                    elif escolha_alteração == 4:
+                        lista_preço_produto = dict_produtos.get(codigo_produto_alteração)
+                        novo_preço = escrita_campo_correta('qual o novo preço do produto? ', 'string')
+                        dict_produtos.update({codigo_produto_alteração : [lista_preço_produto[0], lista_preço_produto[1], novo_preço, lista_preço_produto[3]]})
+
+                    elif escolha_alteração ==5:
+                        lista_estoque_produto = dict_produtos.get(codigo_produto_alteração)
+                        novo_estoque = escrita_campo_correta('Qual é o novo estoque do produto? ', 'string')
+                        dict_produtos.update({codigo_produto_alteração : [lista_estoque_produto[0], lista_estoque_produto[1], lista_estoque_produto[2], novo_estoque]})
 
                 
                 repitir4 = input('Deseja fazer outra alteração?(S/N) ')
