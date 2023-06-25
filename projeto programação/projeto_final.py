@@ -285,3 +285,5 @@ while (True):
                     break
 
 
+dict_produtos_json = json.dumps(dict_produtos)
+print(dict_produtos_json)
