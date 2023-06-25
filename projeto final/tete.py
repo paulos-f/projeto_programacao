@@ -187,9 +187,9 @@ while (True):
 
             if decidir_modo_alterção.upper() == 'C': ### alterações feitas via codigo
 
-                produto_codigo_alteração = escrita_campo_correta('Qual produto você deseja realizar a alteração? ', 'int')
+                codigo_produto_alteração = escrita_campo_correta('Qual produto você deseja realizar a alteração? ', 'int')
 
-                if produto_codigo_alteração not in dict_produtos.keys():
+                if codigo_produto_alteração not in dict_produtos.keys():
                     print('Codigo invalido!!!')
 
 
@@ -197,20 +197,30 @@ while (True):
                     escolha_alteração = alternativas_alteração()
 
                     if escolha_alteração == 1:
-                        lista_codigo_produto = dict_produtos.get(produto_codigo_alteração)
+                        lista_codigo_produto = dict_produtos.get(codigo_produto_alteração)
                         novo_codigo = escrita_campo_correta('qual o numero do novo codigo? ', 'int')
                         dict_produtos.update({novo_codigo : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], lista_codigo_produto[3]]})
-                        dict_produtos.pop(produto_codigo_alteração)
+                        dict_produtos.pop(codigo_produto_alteração)
 
                     elif escolha_alteração == 2:
-                        lista_nome_produto = dict_produtos.get(produto_codigo_alteração)
+                        lista_nome_produto = dict_produtos.get(codigo_produto_alteração)
                         novo_nome = escrita_campo_correta('qual o nome do novo produto? ', 'string')
-                        dict_produtos.update({produto_codigo_alteração : [novo_nome, lista_nome_produto[1], lista_nome_produto[2], lista_nome_produto[3]]})
+                        dict_produtos.update({codigo_produto_alteração : [novo_nome, lista_nome_produto[1], lista_nome_produto[2], lista_nome_produto[3]]})
                         
                     elif escolha_alteração == 3:
-                        lista_tipo_produto = dict_produtos.get(produto_codigo_alteração)
+                        lista_tipo_produto = dict_produtos.get(codigo_produto_alteração)
                         novo_tipo = escrita_campo_correta('qual o novo tipo do produto? ', 'string')
-                        dict_produtos.update({produto_codigo_alteração : [lista_tipo_produto[0], novo_tipo, lista_tipo_produto[2], lista_tipo_produto[3]]})
+                        dict_produtos.update({codigo_produto_alteração : [lista_tipo_produto[0], novo_tipo, lista_tipo_produto[2], lista_tipo_produto[3]]})
+
+                    elif escolha_alteração == 4:
+                        lista_preço_produto = dict_produtos.get(codigo_produto_alteração)
+                        novo_preço = escrita_campo_correta('qual o novo preço do produto? ', 'string')
+                        dict_produtos.update({codigo_produto_alteração : [lista_preço_produto[0], lista_preço_produto[1], novo_preço, lista_preço_produto[3]]})
+
+                    elif escolha_alteração ==5:
+                        lista_estoque_produto = dict_produtos.get(codigo_produto_alteração)
+                        novo_estoque = escrita_campo_correta('Qual é o novo estoque do produto? ', 'string')
+                        dict_produtos.update({codigo_produto_alteração : [lista_estoque_produto[0], lista_estoque_produto[1], lista_estoque_produto[2], novo_estoque]})
 
 
                 repitir3 = input('Deseja fazer outra alteração?(S/N) ')
