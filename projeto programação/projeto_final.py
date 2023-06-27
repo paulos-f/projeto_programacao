@@ -28,15 +28,20 @@ dict_produtos = {2814: ['Pão Francês', 'Pão', 2.5, 50],
                   3760: ['Chocolate em Pó', 'Ingrediente', 4.0, 15],
                   742: ['Fermento Biológico', 'Ingrediente', 2.0, 20],
                   7193: ['farinha', 'po', 10.87, 1000]}
-
-dict_registro_vendas = {}
+numero = 0
+dict_registro_vendas = { numero : ['NOME DO PRODUTO', 'QUANTIDADE VENDIDA']}
 
 
 with open("dict_produtos.json", "r") as arquivo:
-    dicionario_carregado = json.load(arquivo)
+    dicionario_produtos_carregado = json.load(arquivo)
 
-dict_produtos = dicionario_carregado
+dict_produtos = dicionario_produtos_carregado
 
+
+with open("dict_registro_vendas.json", "r") as arquivo:
+    dicionario_vendas_carregado = json.load(arquivo)
+
+dict_registro_vendas = dicionario_vendas_carregado
 
 
 
@@ -99,6 +104,12 @@ def checando_produto_dicionario(nome): # verifica se existe produto com o nome n
             return i
     return False
 
+
+def numero_sequencia():
+        numero = 0
+        ultimo_valor_lista = list(dict_registro_vendas.keys())[-1]
+        numero = int(ultimo_valor_lista) + 1
+        return numero
 
 
 while (True):
@@ -182,13 +193,14 @@ while (True):
                 
                 
                 else: #### realisa a venda do produto 
-                    dict_registro_vendas.update({nome_venda : quant_venda})
+                    conjunto_vendas = [nome_venda, quant_venda]
+                    dict_registro_vendas.update({numero_sequencia() : conjunto_vendas})
                     quant_estoque = quant_estoque - quant_venda
                     dict_produtos.update({checando_produto_dicionario(nome_venda) : [lista_codigo_produto[0], lista_codigo_produto[1], lista_codigo_produto[2], int(quant_estoque)]})
                     print('Sobrou {} no estoque'.format(quant_estoque))
                     print('Venda realizada com sucesso!!!')
-                # o problema atual é que o registro de vendas está atualizando, porém, ele apaga os dados das ultimas transações
-            
+                     
+                
             repitir2 = input('Deseja vender outro produto?(S/N) ')
             if repitir2.upper() == 'S':
                 pass
@@ -304,13 +316,19 @@ while (True):
         if escolha_relatorio == 1:
             print(dict_produtos)
         elif escolha_relatorio == 2:
-            print("logo disponibilizaremos essa opção")
+            print(dict_registro_vendas)
 
 
 with open("dict_produtos.json", "w") as arquivo:
     json.dump(dict_produtos, arquivo)
 
 with open("dict_produtos.json", "r") as arquivo:
-    dicionario_carregado = json.load(arquivo)
+    dicionario_produtos_carregado = json.load(arquivo)
 
 
+
+with open("dict_registro_vendas.json", "w") as arquivo:
+    json.dump(dict_registro_vendas, arquivo)
+
+with open("dict_registro_vendas.json", "r") as arquivo:
+    dicionario_vendas_carregado = json.load(arquivo)
