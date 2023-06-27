@@ -29,7 +29,6 @@ dict_produtos = {2814: ['Pão Francês', 'Pão', 2.5, 50],
                   742: ['Fermento Biológico', 'Ingrediente', 2.0, 20],
                   7193: ['farinha', 'po', 10.87, 1000]}
 
-
 dict_registro_vendas = {}
 
 with open("dict_produtos.json", "w") as arquivo:
@@ -37,6 +36,8 @@ with open("dict_produtos.json", "w") as arquivo:
 
 with open("dict_produtos.json", "r") as arquivo:
     dicionario_carregado = json.load(arquivo)
+
+
 
 
 
@@ -292,7 +293,11 @@ while (True):
                     break
 
     elif resposta == 4:
-        pass
+        escolha_relatorio = escrita_campo_correta("Você deseja ver:\n1 - Relatório de todos os produtos.\n2 - Relatório de vendas realizadas.\n", "int")
+        if escolha_relatorio == 1:
+            print(dict_produtos)
+        elif escolha_alteração == 2:
+            pass
 
 
 with open("dict_produtos.json", "w") as arquivo:
