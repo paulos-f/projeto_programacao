@@ -32,10 +32,10 @@ dict_produtos = {2814: ['Pão Francês', 'Pão', 2.5, 50],
 dict_registro_vendas = {}
 
 
-
-
 with open("dict_produtos.json", "r") as arquivo:
     dicionario_carregado = json.load(arquivo)
+
+dict_produtos = dicionario_carregado
 
 
 
@@ -55,16 +55,16 @@ def escrita_campo_correta(phrase, data_type): ### assegura que as variaveis est�
             elif data_type == 'string':
                 case_condition = True
             assert answer != ''
-        except(ValueError, AssertionError):
+        except (ValueError, AssertionError):
             print('Digite de acordo com tipo de unidade.')
     return answer
 
 
 def alternativas_alteração(): ### alterar alguma informação de um produto
     escolha_alterar = None
-    while escolha_alterar not in [1,2,3,4,5] and escolha_alterar != '':
+    while escolha_alterar not in [1,2,3,4,5]:
         try:
-            escolha_alterar = int(input('Você deseja alterar o que? \n 1-Codigo \n 2-Nome \n 3-tipo \n 4-valor \n  5-estoque\n'))
+            escolha_alterar = int(input('Você deseja alterar o que? \n 1-Codigo \n 2-Nome \n 3-tipo \n 4-valor \n 5-estoque\n'))
             assert escolha_alterar in [1,2,3,4,5]    
         except(ValueError, AssertionError):
             print("Campo digitado errado!!!")
@@ -74,7 +74,11 @@ def alternativas_alteração(): ### alterar alguma informação de um produto
 def alternativas_inicio(): ### gerar a tela inicial
     escolha = None
     while escolha not in [1, 2, 3, 4, 5]:
-        escolha = int(input('Escolha uma das opções: \n1 - Cadastrar Produto \n2 - Realizar Venda \n3 - Alterar Produto \n4 - Relatórios  \n5 - Sair \n'))
+        try:
+            escolha = int(input('Escolha uma das opções: \n1 - Cadastrar Produto \n2 - Realizar Venda \n3 - Alterar Produto \n4 - Relatórios  \n5 - Sair \n'))
+            assert escolha in [1,2,3,4,5]    
+        except(ValueError, AssertionError):
+            print("Campo digitado errado!!!\n")
     return escolha
 
 

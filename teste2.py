@@ -1,36 +1,14 @@
-import json
+def alternativas_alteração(): ### alterar alguma informação de um produto
+    escolha_alterar = None
+    while escolha_alterar not in [1,2,3,4,5] and escolha_alterar != '':
+        try:
+            escolha_alterar = int(input('Você deseja alterar o que? \n 1-Codigo \n 2-Nome \n 3-tipo \n 4-valor \n  5-estoque\n'))
+            assert escolha_alterar in [1,2,3,4,5]    
+        except(ValueError, AssertionError):
+            print("Campo digitado errado!!!")
+    return escolha_alterar
 
-mdict = {"nome" : "paulo", 
-         "idade" : 30,
-         "cidade" : "criciuma",
-         "Bomba" : "deca"
-         }
+x = alternativas_alteração()
 
-with open("mdict.json", "w") as arquivo:
-    json.dump(mdict, arquivo)
-
-with open("mdict.json", "r") as arquivo:
-    dicionario_carregado = json.load(arquivo)
-
-
-
-
-mudança = int(input('oq vc quer mudar? '))
-
-if mudança == 2:
-    novo_nome = input("qual o nova idade? ")
-    mdict.update({"idade" : novo_nome})
-
-
-
-
-
-
-with open("mdict.json", "w") as arquivo:
-    json.dump(mdict, arquivo)
-
-with open("mdict.json", "r") as arquivo:
-    dicionario_carregado = json.load(arquivo)
-
-
-print(dicionario_carregado)
+print(x)
+print(type(x))
