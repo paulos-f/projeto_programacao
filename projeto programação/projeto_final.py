@@ -31,12 +31,11 @@ dict_produtos = {2814: ['Pão Francês', 'Pão', 2.5, 50],
 
 dict_registro_vendas = {}
 
-with open("dict_produtos.json", "w") as arquivo:
-    json.dump(dict_produtos, arquivo)
+
+
 
 with open("dict_produtos.json", "r") as arquivo:
     dicionario_carregado = json.load(arquivo)
-
 
 
 
@@ -63,8 +62,12 @@ def escrita_campo_correta(phrase, data_type): ### assegura que as variaveis est�
 
 def alternativas_alteração(): ### alterar alguma informação de um produto
     escolha_alterar = None
-    while escolha_alterar not in [1, 2, 3, 4, 5]:
-        escolha_alterar = int(input('Você deseja alterar o que? \n 1-Codigo \n 2-Nome \n 3-tipo \n 4-valor \n 5-estoque\n '))
+    while escolha_alterar not in [1,2,3,4,5]:
+        try:
+            escolha_alterar = int(input('Você deseja alterar o que? \n 1-Codigo \n 2-Nome \n 3-tipo \n 4-valor \n  5-estoque\n'))
+            assert escolha_alterar in [1,2,3,4,5]    
+        except(ValueError, AssertionError):
+            print("Campo digitado errado!!!")
     return escolha_alterar
 
 
@@ -296,8 +299,8 @@ while (True):
         escolha_relatorio = escrita_campo_correta("Você deseja ver:\n1 - Relatório de todos os produtos.\n2 - Relatório de vendas realizadas.\n", "int")
         if escolha_relatorio == 1:
             print(dict_produtos)
-        elif escolha_alteração == 2:
-            pass
+        elif escolha_relatorio == 2:
+            print("logo disponibilizaremos essa opção")
 
 
 with open("dict_produtos.json", "w") as arquivo:
@@ -306,4 +309,4 @@ with open("dict_produtos.json", "w") as arquivo:
 with open("dict_produtos.json", "r") as arquivo:
     dicionario_carregado = json.load(arquivo)
 
-print(dicionario_carregado)
+
