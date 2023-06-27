@@ -32,11 +32,12 @@ dict_produtos = {2814: ['Pão Francês', 'Pão', 2.5, 50],
 
 dict_registro_vendas = {}
 
+with open("dict_produtos.json", "w") as arquivo:
+    json.dump(dict_produtos, arquivo)
 
+with open("dict_produtos.json", "r") as arquivo:
+    dicionario_carregado = json.load(arquivo)
 
-
-
-print('Dados armazenados e modificados com sucesso!')
 
 
 def escrita_campo_correta(phrase, data_type): ### assegura que as variaveis estão corretas.
@@ -62,7 +63,7 @@ def escrita_campo_correta(phrase, data_type): ### assegura que as variaveis est�
 def alternativas_alteração(): ### alterar alguma informação de um produto
     escolha_alterar = None
     while escolha_alterar not in [1, 2, 3, 4, 5]:
-        escolha_alterar = int(input('Você deseja alterar o que? \n 1-Codigo \n 2-Nome \n 3-tipo \n 4-valor \n 5-estoque '))
+        escolha_alterar = int(input('Você deseja alterar o que? \n 1-Codigo \n 2-Nome \n 3-tipo \n 4-valor \n 5-estoque\n '))
     return escolha_alterar
 
 
@@ -80,6 +81,7 @@ def gerando_codigo(): # gera automaticamente um id entre 1 e 10000 único
     codigo = None
     while codigo in list(dict_produtos.keys()) or codigo == None:
         codigo = np.random.choice(np.arange(0,10_000))
+        codigo = int(codigo)
     return codigo
 
 
@@ -119,6 +121,7 @@ while (True):
             
             print(indentificador_do_produto)
             
+            
             nome_produto = escrita_campo_correta('Qual o nome do produto? ', 'string')
             tipo_produto = escrita_campo_correta('Qual o tipo do produto? ', 'string')
             preço_produto = escrita_campo_correta('Qual o preço do produto? ', 'float')
@@ -130,9 +133,13 @@ while (True):
             lista_tipo_preço_estoque.append(preço_produto)
             lista_tipo_preço_estoque.append(estoque_produto)
                 
-            dict_produtos[indentificador_do_produto] = lista_tipo_preço_estoque ### funciona como um .update
+            
+
+            dict_produtos.update({indentificador_do_produto : lista_tipo_preço_estoque})
+
 
             print('Cadastro Realizado com sucesso!!!!')
+           
 
             repitir = input('Deseja adicionar outro produto?(S/N) ')
             if repitir.upper() == 'S':
@@ -181,7 +188,7 @@ while (True):
                 break
 
     
-    elif resposta == 3:
+    elif resposta == 3: ### altera alguma caracteristica do produto
        
         system("cls")
 
@@ -284,6 +291,14 @@ while (True):
                 elif repitir4.upper() == 'N':
                     break
 
+    elif resposta == 4:
+        pass
 
-dict_produtos_json = json.dumps(dict_produtos)
-print(dict_produtos_json)
+
+with open("dict_produtos.json", "w") as arquivo:
+    json.dump(dict_produtos, arquivo)
+
+with open("dict_produtos.json", "r") as arquivo:
+    dicionario_carregado = json.load(arquivo)
+
+print(dicionario_carregado)
